@@ -99,7 +99,8 @@ function removeEarthquakes() {
 }
 
 function trackLocation() {
-	mymap.locate({setView : true});
-}
+	mymap.locate({setView : true, maxZoom: 15});
+	L.marker([e.latitude, e.longitude]).bindPopup('Your are here');
 
+}
 
