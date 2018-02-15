@@ -1,6 +1,17 @@
 var client;
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
+var testMarkerRed = L.AwesomeMarkers.icon({ 
+	icon: 'play',
+	markerColor: 'red'
+	});
+	
+var testMarkerPink = L.AwesomeMarkers.icon({
+	icon: 'play',
+	markerColor: 'pink'
+	}); 
+ 
+
 function loadMap() {	// load the tiles
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',{
 	maxZoom: 18,
@@ -31,18 +42,49 @@ function earthquakeResponse() {
 // convert the received data - which is text - to JSON format and add it to the map
 function loadEarthquakelayer(earthquakedata) {
 	alert("Loading Earthquakes");
+	
 	// convert the text to JSON
 	var earthquakejson = JSON.parse(earthquakedata);
-	// add the JSON layer onto the map - it will appear using the default icons
-	earthquakelayer = L.geoJson(earthquakejson).addTo(mymap);
-	// change the map zoom so that all the data is shown
+	
+	//load the geoJSON layer using custom icons
+	var earthquakelayer = L.geoJson(earthquakejson,
+	{
+		//use point to layer to create the points
+		pointToLayer:function(feature,latlng)
+		{
+			//look at the GeoJSON file - specifically at the properties - to see the
+			//earthquake magnitude and use a different marker depending on this value
+			//also include a pop-up that shows the place value of the earthquake
+			
+			if(feature.properties.mag > 1.75) {
+				return L.marker(latlng, {icon:testMarkerRed}).bindPopup("<b>"+feature.properties.place+"</b>");
+			}
+			else {
+				//magnitude is 1.75 or less
+				return L.marker(latlng, {icon:testMarkerPink}).bindPopup("<b>"+feature.properties.place+"</b>");;
+			}
+		},
+	}).addTo(mymap);
+	
 	mymap.fitBounds(earthquakelayer.getBounds());
 }
+
+	
+	
+	
+	// add the JSON layer onto the map - it will appear using the default icons
+	//earthquakelayer = L.geoJson(earthquakejson).addTo(mymap);
+	
+	// change the map zoom so that all the data is shown
+	//mymap.fitBounds(earthquakelayer.getBounds());
+//}
+
+
 
 // make sure that there is a variable for the earthquake layer to be referenced by
 // this should be GLOBAL – i.e. not inside a function – so that any code can see the variable
 var earthquakelayer;
 function removeEarthquakes() {
 	alert("Earthquake data will be removed");
-	mymap.removeLayer( earthquakelayer );
+	mymap.removeLayer(earthquakelayer);
 }
