@@ -97,3 +97,9 @@ function removeEarthquakes() {
 	alert("Earthquake data will be removed");
 	mymap.removeLayer(earthquakelayer);
 }
+
+function trackLocation() {
+	mymap.locate({setView : true});
+}
+
+
