@@ -11,13 +11,6 @@ id: 'mapbox.streets'
 }).addTo(mymap);
 }
 
-function loadEarthquakeData() {
-	// call the getEarthquakes code
-	// keep the alert message so that we know something is happening
-	alert("Loading Earthquakes");
-	getEarthquakes();
-}
-
 // create the code to get the Earthquakes data using an XMLHttpRequest
 function getEarthquakes() {
 	client = new XMLHttpRequest();
@@ -37,6 +30,7 @@ function earthquakeResponse() {
 	
 // convert the received data - which is text - to JSON format and add it to the map
 function loadEarthquakelayer(earthquakedata) {
+	alert("Loading Earthquakes");
 	// convert the text to JSON
 	var earthquakejson = JSON.parse(earthquakedata);
 	// add the JSON layer onto the map - it will appear using the default icons
@@ -48,7 +42,7 @@ function loadEarthquakelayer(earthquakedata) {
 // make sure that there is a variable for the earthquake layer to be referenced by
 // this should be GLOBAL – i.e. not inside a function – so that any code can see the variable
 var earthquakelayer;
-function removeEarthquakeData() {
+function removeEarthquakes() {
 	alert("Earthquake data will be removed");
 	mymap.removeLayer( earthquakelayer );
 }
