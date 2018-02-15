@@ -1,6 +1,11 @@
 var client;
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
+var testMarkerDRed = L.AwesomeMarkers.icon({ 
+	icon: 'play',
+	markerColor: 'darkred'
+	});
+	
 var testMarkerRed = L.AwesomeMarkers.icon({ 
 	icon: 'play',
 	markerColor: 'red'
@@ -61,15 +66,23 @@ function loadEarthquakelayer(earthquakedata) {
 			//also include a pop-up that shows the place value of the earthquake
 			
 			if(feature.properties.mag > 5.00) {
-				return L.marker(latlng, {icon:testMarkerRed}).bindPopup("<b>"+feature.properties.place+"</b>");
+				return L.marker(latlng, {icon:testMarkerDRed}).bindPopup("<b>"+"Place: "+feature.properties.place
+				+"<br>"+"Magnitude: "+feature.properties.mag+"</b>");
+			}
+			else if (feature.properties.mag > 3.00) {
+				return L.marker(latlng, {icon:testMarkerRed}).bindPopup("<b>"+"Place: "+feature.properties.place
+				+"<br>"+"Magnitude: "+feature.properties.mag+"</b>");
+
 			}
 			else if (feature.properties.mag > 1.75) {
-				return L.marker(latlng, {icon:testMarkerOrange}).bindPopup("<b>"+feature.properties.place+"</b>");
+				return L.marker(latlng, {icon:testMarkerOrange}).bindPopup("<b>"+"Place: "+feature.properties.place
+				+"<br>"+"Magnitude: "+feature.properties.mag+"</b>");
 
 			}
 			else {
 				//magnitude is 1.75 or less
-				return L.marker(latlng, {icon:testMarkerGreen}).bindPopup("<b>"+feature.properties.place+"</b>");;
+				return L.marker(latlng, {icon:testMarkerGreen}).bindPopup("<b>"+"Place: "+feature.properties.place
+				+"<br>"+"Magnitude: "+feature.properties.mag+"</b>");;
 			}
 		},
 	}).addTo(mymap);
