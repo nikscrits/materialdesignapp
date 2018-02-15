@@ -98,8 +98,25 @@ function removeEarthquakes() {
 	mymap.removeLayer(earthquakelayer);
 }
 
-function trackLocation() {
-	mymap.locate({setView : true, maxZoom: 18});
-	L.marker(e.latlng).addTo(mymap).bindPopup('You are here');
+
+//https://gis.stackexchange.com/questions/182068/getting-current-user-location-automatically-every-x-seconds-to-put-on-leaflet
+// placeholders for the L.marker and L.circle representing user's current position and accuracy    
+var current_position, current_accuracy;
+
+function onLocationFound(e) {
+// if position defined, then remove the existing position marker and accuracy circle from the map
+if (current_position) {
+    mymap.removeLayer(current_position);
+    mymap.removeLayer(current_accuracy);
 }
 
+var radius = e.accuracy / 2;
+
+current_position = L.marker(e.latlng).addTo(mymap).bindPopup("You are within " + radius + " meters from this point").openPopup();
+current_accuracy = L.circle(e.latlng, radius).addTo(mymap);
+}
+
+function trackLocation() {
+      mymap.locate({setView: true, maxZoom: 16});
+	  map.on('locationfound', onLocationFound);
+}
