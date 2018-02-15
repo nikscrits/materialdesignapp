@@ -136,12 +136,21 @@
       </div>
 	  
       <main class="mdl-layout__content mdl-color--grey-100">		
-          <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid"> <!-- from piecharts line -->
+          <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid" div align="center"> <!-- from piecharts line -->
 			<!-- the mapid div will hold the map -->
-			<div id="mapid" style="width: 600px; height: 400px;"></div>
-			<!-- the following script will load the map and set the default view and zoom, as well as loading the
-			basemap tiles -->
+			<div id="mapid" style="width: 100%; height: 400px;"></div>
 			</div>
+			
+			<div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid"> <!-- from piecharts line -->
+			<!--the legendid div will hold the map legend -->
+			<div id ="legendid" style="width: 400px; height: 100px;" div align="left">
+				<b><u>Legend (Earthquake Magnitude)</b></u>
+				<br>Dark red: > 5.00
+				<br>Red: > 3.00
+				<br>Orange: > 1.75
+				<br>Green: < 1.75
+			</div>
+			</div
 			
       </main>
     </div>
