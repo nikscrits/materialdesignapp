@@ -118,5 +118,6 @@ current_accuracy = L.circle(e.latlng, radius).addTo(mymap);
 
 function trackLocation() {
       mymap.locate({setView: true, maxZoom: 16});
-	  map.on('locationfound', onLocationFound);
+	  var currentlocation = position.coords;
+	  alert(currentlocation);
 }
