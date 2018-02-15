@@ -213,3 +213,10 @@ _:-ms-input-placeholder, :root .demo-graph {
       -ms-flex-align: center;
           align-items: center;
 }
+
+.mapid {
+    width: 100%;
+    height: 100%;
+    background: #444;
+    margin: 0 auto;
+}
