@@ -19,6 +19,11 @@ var testMarkerGreen = L.AwesomeMarkers.icon({
 var testMarkerOrange = L.AwesomeMarkers.icon({
 	icon: 'play',
 	markerColor: 'orange'
+	});
+	
+var testMarkerBlue = L.AwesomeMarkers.icon({
+	icon: 'play',
+	markerColor: 'blue'
 	}); 
 	
 function loadMap() {	// load the tiles
@@ -104,7 +109,6 @@ function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     } else {
-		alert("Location not working");
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
 }
@@ -133,7 +137,15 @@ function showPosition(position) {
 	mymap.panTo([position.coords.latitude, position.coords.longitude]);
 	
 	L.marker([position.coords.latitude, position.coords.longitude], 
-	{icon:testMarkerGreen}).addTo(mymap).bindPopup("You are here");
+	{icon:testMarkerBlue}).addTo(mymap).bindPopup("You are here");
 	
 	mymap.setView([position.coords.latitude, position.coords.longitude], 10);
+}
+
+
+function trackLocation() {
+
+	var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { frequency: 3000 });
+	showPosition(watchID);
+	
 }
