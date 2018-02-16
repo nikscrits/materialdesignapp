@@ -104,7 +104,6 @@ function removeEarthquakes() {
 }
 
 
-
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -140,12 +139,16 @@ function showPosition(position) {
 	{icon:testMarkerBlue}).addTo(mymap).bindPopup("You are here");
 	
 	mymap.setView([position.coords.latitude, position.coords.longitude], 16);
+	
 }
 
 
 function trackLocation() {
 
 	var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { frequency: 3000 });
-	showPosition(watchID);
+	
+	function onSuccess(position) {
+			showPosition(position);
+    }
 	
 }
