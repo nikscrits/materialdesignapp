@@ -98,15 +98,23 @@ function removeEarthquakes() {
 	mymap.removeLayer(earthquakelayer);
 }
 
-function trackLocation() {
-    mymap.locate({setView: true, maxZoom: 16, watch:true});
+function trackLocation(){
 	
-function onLocationFound(e) {
-	var radius = e.accuracy / 2;
-	L.marker(e.latlng).addTo(mymap).bindPopup("You are within" + radius + " meters from this point.").openPopup();
-	L.circle(e.latlng, radius).addTo(mymap);
-}
-
-	map.on('locationfound', onLocationFound);
-}
-
+	var watch_id = null;    // ID of the geolocation
+		 
+	// Start tracking the User
+	watch_id = navigator.geolocation.watchPosition(
+		 
+		// Success
+		function(position){
+			L.marker(position.coords.latitude, position.coords.longitude, {icon:testMarkerRed}).bindPopup("You are here");
+		},
+			 
+		// Error
+		function(error){
+			console.log(error);
+		},
+			 
+		// Settings
+		{ frequency: 3000, enableHighAccuracy: true });
+};
