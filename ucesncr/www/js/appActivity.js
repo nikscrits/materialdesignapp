@@ -139,7 +139,7 @@ function showPosition(position) {
 	L.marker([position.coords.latitude, position.coords.longitude], 
 	{icon:testMarkerBlue}).addTo(mymap).bindPopup("You are here");
 	
-	mymap.setView([position.coords.latitude, position.coords.longitude], 10);
+	mymap.setView([position.coords.latitude, position.coords.longitude], 16);
 }
 
 
