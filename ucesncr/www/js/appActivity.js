@@ -129,10 +129,11 @@ function showError(error) {
 function showPosition(position) {
 	
 	alert("Pos: " + position.coords.latitude + "," + position.coords.longitude);
+		
+	mymap.panTo([position.coords.latitude, position.coords.longitude]);
 	
-	var latlon = position.coords.latitude + "," + position.coords.longitude;
+	L.marker([position.coords.latitude, position.coords.longitude], 
+	{icon:testMarkerGreen}).addTo(mymap).bindPopup("You are here");
 	
-	mymap.panTo(latlon);
-	
-	L.marker(latlon, {icon:testMarkerGreen}).addTo(mymap).bindPopup("You are here");
+	mymap.setView([position.coords.latitude, position.coords.longitude], 10);
 }
