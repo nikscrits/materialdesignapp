@@ -99,5 +99,14 @@ function removeEarthquakes() {
 }
 
 function trackLocation() {
-      mymap.locate({setView: true, maxZoom: 16});
+    mymap.locate({setView: true, maxZoom: 16, watch:true});
+	
+function onLocationFound(e) {
+	var radius = e.accuracy / 2;
+	L.marker(e.latlng).addTo(mymap).bindPopup("You are within" + radius + " meters from this point.").openPopup();
+	L.circle(e.latlng, radius).addTo(mymap);
 }
+
+	map.on('locationfound', onLocationFound);
+}
+
