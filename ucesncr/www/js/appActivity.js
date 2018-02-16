@@ -128,6 +128,8 @@ function showError(error) {
 
 function showPosition(position) {
 	
+	alert("Pos: " + position.coords.latitude + "," + position.coords.longitude);
+	
 	var latlon = position.coords.latitude + "," + position.coords.longitude;
 	
 	mymap.panTo(latlon);
