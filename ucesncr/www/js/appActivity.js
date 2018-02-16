@@ -147,8 +147,12 @@ function trackLocation() {
 
 	var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { frequency: 3000 });
 	
-	function onSuccess(position) {
-			showPosition(position);
-    }
+	alert(watchID);
 	
+	function onSuccess(position) {
+		alert("Pos: " + position.coords.latitude + "," + position.coords.longitude);
+		showPosition(position);
+    }
 }
+
+
