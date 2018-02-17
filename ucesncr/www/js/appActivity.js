@@ -277,8 +277,11 @@ function trackLocation() {
 	
 	var currentLoc;
 	
-	setInterval((currentLoc = getCurrentLocation), 3000);
+	setInterval((currentLoc = getCurrentLocation()), 3000);
 	
+	alert("TRIED");
+	alert("Getting 23 here" + currentLoc.properties.name);
+
 	currentLocationLayer = L.geoJson(currentLoc,
 		{
 			//use point to layer to create the points
@@ -318,7 +321,9 @@ function getCurrentLocation() {
 		};
 		
 		return locationJSON;
+		alert("Getting here" + locationJSON.properties.name);
 	}
 	
+	alert("Getting 2 here" + locationJSON.properties.name);
 	return locationJSON;
 }
