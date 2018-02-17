@@ -155,7 +155,7 @@ function showPosition(position) {
 		},
 		"geometry": {
 			"type": "Point",
-			"coordinates": [position.coords.latitude, position.coords.longitude]
+			"coordinates": [lng,lat]
 		}
 	};
 	
