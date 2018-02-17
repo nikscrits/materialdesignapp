@@ -175,10 +175,19 @@ function trackLocation() {
 			}
 		};
 
-		var currentLocationLayer = L.geoJSON(currentLocationJSON).addTo(mymap);
-
+		//var currentLocationLayer = L.geoJSON(currentLocationJSON).addTo(mymap);
+		
+		//load the current location geoJSON layer using custom icons
+		var currentLocationLayer = L.geoJson(currentLocationJSON,
+		{
+			//use point to layer to create the points
+			pointToLayer:function(feature,latlng)
+			{
+				return L.marker(latlng, {icon:testMarkerBlue}).bindPopup(feature.properties.popupContent);
+			},
+		}).addTo(mymap);
+			
 		mymap.fitBounds(currentLocationLayer.getBounds());
 
 	});
-
 }
