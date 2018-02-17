@@ -272,42 +272,18 @@ function tracking() {
 	});
 } */
 
+var currentLoc;
 
 function trackLocation() {
-	
-	var currentLoc;
-	
-	setInterval((currentLoc = getCurrentLocation()), 3000);
-	
-	alert("TRIED");
-	alert("Getting 23 here" + currentLoc.properties.name);
 
-	currentLocationLayer = L.geoJson(currentLoc,
-		{
-			//use point to layer to create the points
-			pointToLayer:function(feature,latlng)
-			{
-				return L.marker(latlng, {icon:testMarkerBlue}).bindPopup(feature.properties.popupContent);
-			},
-		}).addTo(mymap);
-			
-		mymap.fitBounds(currentLocationLayer.getBounds());
-		mymap.setView([lat2, lng2], 16);
-}
-
-var lat3;
-var lng3;
-
-function getCurrentLocation() {
+	navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: 5000, enableAccuracy: false});
 	
-    navigator.geolocation.getCurrentPosition(function(position) {
+	function onSuccess(position) {
+		
 		lat3 = position.coords.latitude;
 		lng3 = position.coords.longitude;
-	});
-	
-	alert("ONE : " + lat3 + lng3);
-	
-	var locationJSON = {
+		
+		var currentLoc = {
 		"type": "Feature",
 		"properties": {
 			"name": "Start Location",
@@ -319,6 +295,17 @@ function getCurrentLocation() {
 		}
 	};
 		
-	alert("Getting 2 here" + locationJSON.properties.name + locationJSON.properties.coords);
-	return locationJSON;
+		currentLocationLayer = L.geoJson(currentLoc,
+		{
+			//use point to layer to create the points
+			pointToLayer:function(feature,latlng)
+			{
+				return L.marker(latlng, {icon:testMarkerBlue}).bindPopup(feature.properties.popupContent);
+			},
+		}).addTo(mymap);
+			
+		mymap.fitBounds(currentLocationLayer.getBounds());
+		mymap.setView([lat2, lng2], 16);
+	}
+
 }
