@@ -278,8 +278,6 @@ function trackLocation() {
 	var currentLoc;
 	
 	setInterval((currentLoc = getCurrentLocation), 3000);
-
-	alert(currentLoc.properties.name);
 	
 	currentLocationLayer = L.geoJson(currentLoc,
 		{
