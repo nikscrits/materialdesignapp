@@ -296,25 +296,29 @@ function trackLocation() {
 function getCurrentLocation() {
 	
 	if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position);
+        navigator.geolocation.getCurrentPosition(onSuccess);
     } else {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
 	
-	var lat2 = position.coords.latitude;
-	var lng2 = position.coords.longitude;
-	
-	var locationJSON = {
-		"type": "Feature",
-		"properties": {
-			"name": "Start Location",
-			"popupContent": "This is the current location!"
-		},
-		"geometry": {
-			"type": "Point",
-			"coordinates": [lng2,lat2]
-		}
-	};
+	function onSuccess(position) {
+		var lat2 = position.coords.latitude;
+		var lng2 = position.coords.longitude;
+		
+		var locationJSON = {
+			"type": "Feature",
+			"properties": {
+				"name": "Start Location",
+				"popupContent": "This is the current location!"
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [lng2,lat2]
+			}
+		};
+		
+		return locationJSON;
+	}
 	
 	return locationJSON;
 }
