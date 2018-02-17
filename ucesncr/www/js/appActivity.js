@@ -276,7 +276,7 @@ var currentLoc;
 
 function trackLocation() {
 
-	navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: 5000, enableAccuracy: false});
+	navigator.geolocation.getCurrentPosition(onSuccess, {timeout: 5000, enableAccuracy: false});
 	
 	function onSuccess(position) {
 		
