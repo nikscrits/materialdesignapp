@@ -304,6 +304,9 @@ function getCurrentLocation() {
     navigator.geolocation.getCurrentPosition(function(position) {
 		lat2 = position.coords.latitude;
 		lng2 = position.coords.longitude;
+		
+		alert("INITIAL : " + lat2 + lng2);
+		return lat2, lng2;
 	});
 	
 	alert("ONE : " + lat2 + lng2);
