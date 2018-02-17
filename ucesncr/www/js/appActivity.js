@@ -299,7 +299,7 @@ function trackLocation() {
 function getCurrentLocation() {
 	
 	if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(onSuccess);
+        navigator.geolocation.getCurrentPosition((locationJSON = onSuccess()));
     } else {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
