@@ -178,6 +178,12 @@ function showPosition(position) {
 
 }
 
+var showPositionLayer;
+function removePosition() {
+	alert("Earthquake data will be removed");
+	mymap.removeLayer(showPositionLayer);
+}
+
 /* function trackLocation() {
 	
 	//setInterval(getLocation,3000);
