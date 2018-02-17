@@ -136,16 +136,6 @@ function showError(error) {
 function showPosition(position) {
 	
 	alert("Pos: " + position.coords.latitude + "," + position.coords.longitude);
-		
-	//mymap.panTo([position.coords.latitude, position.coords.longitude]);
-	
-	//L.marker([position.coords.latitude, position.coords.longitude], 
-	//{icon:testMarkerBlue}).addTo(mymap).bindPopup("You are here");
-	
-	//mymap.setView([position.coords.latitude, position.coords.longitude], 16);
-	
-	
-	//
 	
 	var lat = position.coords.latitude;
     var lng = position.coords.longitude;
@@ -184,7 +174,7 @@ function removePosition() {
 	mymap.removeLayer(showPositionLayer);
 }
 
-/* function trackLocation() {
+/*  function trackLocation() {
 	
 	//setInterval(getLocation,3000);
 	
@@ -204,36 +194,12 @@ function removePosition() {
 
 function trackLocation() {
 	
-	var startPos;
-	navigator.geolocation.getCurrentPosition(function(position) {
-		startPos = position;
-	});
-	
-	var startingLocationJSON = {
-		"type": "Feature",
-		"properties": {
-			"name": "Start Location",
-			"popupContent": "This is the current location!"
-		},
-		"geometry": {
-			"type": "Point",
-			"coordinates": [startPos.coords.latitude, startPos.coords.longitude]
-		}
-	};
-	
-	var currentLocationLayer = L.geoJson(startingLocationJSON,
-		{
-			//use point to layer to create the points
-			pointToLayer:function(feature,latlng)
-			{
-				return L.marker(latlng, {icon:testMarkerBlue}).bindPopup(feature.properties.popupContent);
-			},
-		}).addTo(mymap);
-	
-	
 	navigator.geolocation.watchPosition(function(position) {
-		mymap.removeLayer(currentLocationLayer);
 		
+		var lat2 = position.coords.latitude;
+		var lng2 = position.coords.longitude;
+	
+	
 		var currentLocationJSON = {
 			"type": "Feature",
 			"properties": {
@@ -242,13 +208,12 @@ function trackLocation() {
 			},
 			"geometry": {
 				"type": "Point",
-				"coordinates": [position.coords.latitude, position.coords.longitude]
+				"coordinates": [lng2, lat2]
 			}
-		};
-
-		//var currentLocationLayer = L.geoJSON(currentLocationJSON).addTo(mymap);
-		
-		//load the current location geoJSON layer using custom icons
+		};			
+	});
+	
+	//load the current location geoJSON layer using custom icons
 		currentLocationLayer = L.geoJson(currentLocationJSON,
 		{
 			//use point to layer to create the points
@@ -259,5 +224,5 @@ function trackLocation() {
 		}).addTo(mymap);
 			
 		mymap.fitBounds(currentLocationLayer.getBounds());
-	});
+		mymap.setView([lat2, lng2], 16);
 }
