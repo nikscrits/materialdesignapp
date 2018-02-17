@@ -275,7 +275,9 @@ function tracking() {
 
 function trackLocation() {
 	
-	currentLoc = setInterval(getCurrentLocation, 3000);
+	var currentLoc;
+	
+	setInterval((currentLoc = getCurrentLocation), 3000);
 
 	alert(currentLoc.properties.name);
 	
