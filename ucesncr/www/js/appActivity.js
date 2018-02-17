@@ -192,7 +192,7 @@ function removePosition() {
 
 } */
 
-function trackLocation() {
+/* function trackLocation() {
 	
 	navigator.geolocation.watchPosition(function(position) {
 		
@@ -210,11 +210,10 @@ function trackLocation() {
 				"type": "Point",
 				"coordinates": [lng2, lat2]
 			}
-		};			
-	});
-	
+		};
+
 	//load the current location geoJSON layer using custom icons
-		currentLocationLayer = L.geoJson(currentLocationJSON,
+	currentLocationLayer = L.geoJson(currentLocationJSON,
 		{
 			//use point to layer to create the points
 			pointToLayer:function(feature,latlng)
@@ -225,4 +224,50 @@ function trackLocation() {
 			
 		mymap.fitBounds(currentLocationLayer.getBounds());
 		mymap.setView([lat2, lng2], 16);
+	});
+} */
+
+
+function trackLocation() {
+	
+	currentLocationJSON = tracking();
+
+	//load the current location geoJSON layer using custom icons
+	currentLocationLayer = L.geoJson(currentLocationJSON,
+		{
+			//use point to layer to create the points
+			pointToLayer:function(feature,latlng)
+			{
+				return L.marker(latlng, {icon:testMarkerBlue}).bindPopup(feature.properties.popupContent);
+			},
+		}).addTo(mymap);
+			
+		mymap.fitBounds(currentLocationLayer.getBounds());
+		mymap.setView([lat2, lng2], 16);
+		
+}
+
+
+function tracking() {
+	
+	navigator.geolocation.watchPosition(function(position) {
+		
+		var lat2 = position.coords.latitude;
+		var lng2 = position.coords.longitude;
+	
+	
+		var currentLoc = {
+			"type": "Feature",
+			"properties": {
+				"name": "Current Location",
+				"popupContent": "This is the current location!"
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [lng2, lat2]
+			}
+		};
+		
+		return currentLoc;
+	});
 }
