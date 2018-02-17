@@ -276,7 +276,7 @@ var currentLoc;
 
 function trackLocation() {
 
-	navigator.geolocation.getCurrentPosition(onSuccess, {timeout: 5000, enableAccuracy: false});
+	navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: 5000, enableAccuracy: false});
 	
 	function onSuccess(position) {
 		
@@ -294,6 +294,10 @@ function trackLocation() {
 			"coordinates": [lng3,lat3]
 		}
 	};
+	
+	function onError(error) {
+		alert('code: ' + error.code + 'n' + 'message: ' + error.message + 'n');
+	}
 		
 		currentLocationLayer = L.geoJson(currentLoc,
 		{
