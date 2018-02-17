@@ -142,7 +142,7 @@ function showPosition(position) {
 	
 }
 
-function trackLocation() {
+/* function trackLocation() {
 	
 	//setInterval(getLocation,3000);
 	
@@ -158,9 +158,27 @@ function trackLocation() {
 		mymap.setView([position.coords.latitude, position.coords.longitude], 16);
 	});
 
+} */
+
+function trackLocation() {
+
+	navigator.geolocation.watchPosition(function(position) {
+		var currentLocationJSON = {
+			"type": "Feature",
+			"properties": {
+				"name": "Current Location",
+				"popupContent": "This is the current location!"
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [position.coords.latitude, position.coords.longitude]
+			}
+		};
+
+		var currentLocationLayer = L.geoJSON(currentLocationJSON).addTo(mymap);
+
+		mymap.fitBounds(currentLocationLayer.getBounds());
+
+	});
+
 }
-
-
-
-
-
