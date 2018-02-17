@@ -311,6 +311,4 @@ function trackLocation() {
 			
 		mymap.fitBounds(currentLocationLayer.getBounds());
 		mymap.setView([lat2, lng2], 16);
-	}
-
 }
