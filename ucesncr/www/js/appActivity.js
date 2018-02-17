@@ -296,15 +296,6 @@ function trackLocation() {
 }
 
 
-
-var startPos;
-  navigator.geolocation.getCurrentPosition(function(position) {
-    startPos = position;
-    document.getElementById('startLat').innerHTML = startPos.coords.latitude;
-    document.getElementById('startLon').innerHTML = startPos.coords.longitude;
-  });
-//
-
 function getCurrentLocation() {
 	
 	var lat2;
@@ -327,6 +318,6 @@ function getCurrentLocation() {
 		}
 	};
 		
-	alert("Getting 2 here" + locationJSON.properties.name);
+	alert("Getting 2 here" + locationJSON.properties.name + locationJSON.properties.coords);
 	return locationJSON;
 }
