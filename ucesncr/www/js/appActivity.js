@@ -174,11 +174,11 @@ function removePosition() {
 	mymap.removeLayer(showPositionLayer);
 }
 
-/*  function trackLocation() {
+ //function trackLocation() {
 	
 	//setInterval(getLocation,3000);
 	
-	navigator.geolocation.watchPosition(function(position) {
+	/* navigator.geolocation.watchPosition(function(position) {
 		var currentLat = position.coords.latitude;
 		var currentLon = position.coords.longitude;
 		
@@ -188,9 +188,9 @@ function removePosition() {
 		{icon:testMarkerBlue}).addTo(mymap).bindPopup("You are here");
 	
 		mymap.setView([position.coords.latitude, position.coords.longitude], 16);
-	});
+	}); */
 
-} */
+//}
 
 /* function trackLocation() {
 	
@@ -295,21 +295,17 @@ function trackLocation() {
 		mymap.setView([lat2, lng2], 16);
 }
 
+var lat3;
+var lng3;
 
 function getCurrentLocation() {
 	
-	var lat2;
-	var lng2;
-	
     navigator.geolocation.getCurrentPosition(function(position) {
-		lat2 = position.coords.latitude;
-		lng2 = position.coords.longitude;
-		
-		alert("INITIAL : " + lat2 + lng2);
-		return lat2, lng2;
+		lat3 = position.coords.latitude;
+		lng3 = position.coords.longitude;
 	});
 	
-	alert("ONE : " + lat2 + lng2);
+	alert("ONE : " + lat3 + lng3);
 	
 	var locationJSON = {
 		"type": "Feature",
@@ -319,7 +315,7 @@ function getCurrentLocation() {
 		},
 		"geometry": {
 			"type": "Point",
-			"coordinates": [lng2,lat2]
+			"coordinates": [lng3,lat3]
 		}
 	};
 		
