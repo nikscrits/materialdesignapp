@@ -105,6 +105,10 @@ function removeEarthquakes() {
 
 
 function getLocation() {
+	
+	alert("Loading Location");
+	
+		
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     } else {
@@ -133,13 +137,42 @@ function showPosition(position) {
 	
 	alert("Pos: " + position.coords.latitude + "," + position.coords.longitude);
 		
-	mymap.panTo([position.coords.latitude, position.coords.longitude]);
+	//mymap.panTo([position.coords.latitude, position.coords.longitude]);
 	
-	L.marker([position.coords.latitude, position.coords.longitude], 
-	{icon:testMarkerBlue}).addTo(mymap).bindPopup("You are here");
+	//L.marker([position.coords.latitude, position.coords.longitude], 
+	//{icon:testMarkerBlue}).addTo(mymap).bindPopup("You are here");
 	
-	mymap.setView([position.coords.latitude, position.coords.longitude], 16);
+	//mymap.setView([position.coords.latitude, position.coords.longitude], 16);
 	
+	
+	//
+	
+	var startingLocationJSON = {
+		"type": "Feature",
+		"properties": {
+			"name": "Start Location",
+			"popupContent": "This is the current location!"
+		},
+		"geometry": {
+			"type": "Point",
+			"coordinates": [position.coords.latitude, position.coords.longitude]
+		}
+	};
+	
+	// convert the text to JSON
+	var userLocationJSON = JSON.parse(startingLocationJSON);
+	
+	//load the geoJSON layer using custom icons
+	var showPositionLayer = L.geoJson(userLocationJSON,
+	{
+		//use point to layer to create the points
+		pointToLayer:function(feature,latlng)
+		{
+				return L.marker(latlng, {icon:testMarkerBlue}).bindPopup(feature.properties.popupContent);
+		},
+	}).addTo(mymap);
+	
+	mymap.fitBounds(showPositionLayer.getBounds());
 }
 
 /* function trackLocation() {
@@ -175,7 +208,7 @@ function trackLocation() {
 		},
 		"geometry": {
 			"type": "Point",
-			"coordinates": [position.coords.latitude, position.coords.longitude]
+			"coordinates": [startPos.coords.latitude, startPos.coords.longitude]
 		}
 	};
 	
