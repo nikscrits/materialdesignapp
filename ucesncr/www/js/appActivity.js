@@ -293,6 +293,7 @@ function trackLocation() {
 			"type": "Point",
 			"coordinates": [lng3,lat3]
 		}
+		};
 	};
 	
 	function onError(error) {
