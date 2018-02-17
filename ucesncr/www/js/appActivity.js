@@ -161,8 +161,12 @@ function showPosition(position) {
 } */
 
 function trackLocation() {
-
+	
+	var currentLocationLayer;
+	
 	navigator.geolocation.watchPosition(function(position) {
+		mymap.removeLayer(currentLocationLayer);
+		
 		var currentLocationJSON = {
 			"type": "Feature",
 			"properties": {
@@ -178,7 +182,7 @@ function trackLocation() {
 		//var currentLocationLayer = L.geoJSON(currentLocationJSON).addTo(mymap);
 		
 		//load the current location geoJSON layer using custom icons
-		var currentLocationLayer = L.geoJson(currentLocationJSON,
+		currentLocationLayer = L.geoJson(currentLocationJSON,
 		{
 			//use point to layer to create the points
 			pointToLayer:function(feature,latlng)
@@ -188,6 +192,5 @@ function trackLocation() {
 		}).addTo(mymap);
 			
 		mymap.fitBounds(currentLocationLayer.getBounds());
-
 	});
 }
