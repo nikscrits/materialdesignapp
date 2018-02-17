@@ -281,7 +281,6 @@ function trackLocation() {
 	
 	currentLocationLayer = L.geoJson(currentLoc,
 		{
-			alert(feature.properties.name);
 			//use point to layer to create the points
 			pointToLayer:function(feature,latlng)
 			{
