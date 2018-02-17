@@ -162,11 +162,8 @@ function showPosition(position) {
 		}
 	};
 	
-	// convert the text to JSON
-	var userLocationJSON = JSON.parse(startingLocationJSON);
-	
 	//load the geoJSON layer using custom icons
-	var showPositionLayer = L.geoJson(userLocationJSON,
+	var showPositionLayer = L.geoJson(startingLocationJSON,
 	{
 		//use point to layer to create the points
 		pointToLayer:function(feature,latlng)
