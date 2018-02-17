@@ -296,36 +296,37 @@ function trackLocation() {
 }
 
 
+
+var startPos;
+  navigator.geolocation.getCurrentPosition(function(position) {
+    startPos = position;
+    document.getElementById('startLat').innerHTML = startPos.coords.latitude;
+    document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+  });
+//
+
 function getCurrentLocation() {
 	
-	var locationJSON;
+	var lat2;
+	var lng2;
 	
-	if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(onSuccess);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
+    navigator.geolocation.getCurrentPosition(function(position) {
+		lat2 = position.coords.latitude;
+		lng2 = position.coords.longitude;
+	});
 	
-	function onSuccess(position) {
-		var lat2 = position.coords.latitude;
-		var lng2 = position.coords.longitude;
+	var locationJSON = {
+		"type": "Feature",
+		"properties": {
+			"name": "Start Location",
+			"popupContent": "This is the current location!"
+		},
+		"geometry": {
+			"type": "Point",
+			"coordinates": [lng2,lat2]
+		}
+	};
 		
-		locationJSON = {
-			"type": "Feature",
-			"properties": {
-				"name": "Start Location",
-				"popupContent": "This is the current location!"
-			},
-			"geometry": {
-				"type": "Point",
-				"coordinates": [lng2,lat2]
-			}
-		};
-		
-		return locationJSON;
-		alert("Getting here" + locationJSON.properties.name);
-	}
-	
 	alert("Getting 2 here" + locationJSON.properties.name);
 	return locationJSON;
 }
