@@ -298,8 +298,10 @@ function trackLocation() {
 
 function getCurrentLocation() {
 	
+	var locationJSON;
+	
 	if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((locationJSON = onSuccess()));
+        navigator.geolocation.getCurrentPosition(onSuccess);
     } else {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
@@ -308,7 +310,7 @@ function getCurrentLocation() {
 		var lat2 = position.coords.latitude;
 		var lng2 = position.coords.longitude;
 		
-		var locationJSON = {
+		locationJSON = {
 			"type": "Feature",
 			"properties": {
 				"name": "Start Location",
