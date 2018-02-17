@@ -162,7 +162,32 @@ function showPosition(position) {
 
 function trackLocation() {
 	
-	var currentLocationLayer;
+	var startPos;
+	navigator.geolocation.getCurrentPosition(function(position) {
+		startPos = position;
+	});
+	
+	var startingLocationJSON = {
+		"type": "Feature",
+		"properties": {
+			"name": "Start Location",
+			"popupContent": "This is the current location!"
+		},
+		"geometry": {
+			"type": "Point",
+			"coordinates": [position.coords.latitude, position.coords.longitude]
+		}
+	};
+	
+	var currentLocationLayer = L.geoJson(startingLocationJSON,
+		{
+			//use point to layer to create the points
+			pointToLayer:function(feature,latlng)
+			{
+				return L.marker(latlng, {icon:testMarkerBlue}).bindPopup(feature.properties.popupContent);
+			},
+		}).addTo(mymap);
+	
 	
 	navigator.geolocation.watchPosition(function(position) {
 		mymap.removeLayer(currentLocationLayer);
