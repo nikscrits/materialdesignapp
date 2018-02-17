@@ -147,6 +147,9 @@ function showPosition(position) {
 	
 	//
 	
+	var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+	
 	var startingLocationJSON = {
 		"type": "Feature",
 		"properties": {
@@ -173,6 +176,9 @@ function showPosition(position) {
 	}).addTo(mymap);
 	
 	mymap.fitBounds(showPositionLayer.getBounds());
+	
+	mymap.setView([lat,lng], 16);
+
 }
 
 /* function trackLocation() {
