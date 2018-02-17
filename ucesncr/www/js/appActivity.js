@@ -306,6 +306,8 @@ function getCurrentLocation() {
 		lng2 = position.coords.longitude;
 	});
 	
+	alert("ONE : " + lat2 + lng2);
+	
 	var locationJSON = {
 		"type": "Feature",
 		"properties": {
