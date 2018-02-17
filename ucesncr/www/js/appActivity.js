@@ -144,8 +144,23 @@ function showPosition(position) {
 
 function trackLocation() {
 	
-	setInterval(getLocation,3000);
+	//setInterval(getLocation,3000);
 	
+	navigator.geolocation.watchPosition(function(position) {
+		var currentLat = position.coords.latitude;
+		var currentLon = position.coords.longitude;
+		
+		mymap.panTo([position.coords.latitude, position.coords.longitude]);
+	
+		L.marker([position.coords.latitude, position.coords.longitude], 
+		{icon:testMarkerBlue}).addTo(mymap).bindPopup("You are here");
+	
+		mymap.setView([position.coords.latitude, position.coords.longitude], 16);
+	});
+
 }
+
+
+
 
 

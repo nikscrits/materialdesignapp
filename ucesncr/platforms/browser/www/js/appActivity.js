@@ -19,6 +19,11 @@ var testMarkerGreen = L.AwesomeMarkers.icon({
 var testMarkerOrange = L.AwesomeMarkers.icon({
 	icon: 'play',
 	markerColor: 'orange'
+	});
+	
+var testMarkerBlue = L.AwesomeMarkers.icon({
+	icon: 'play',
+	markerColor: 'blue'
 	}); 
 	
 function loadMap() {	// load the tiles
@@ -99,12 +104,10 @@ function removeEarthquakes() {
 }
 
 
-
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     } else {
-		alert("Location not working");
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
 }
@@ -128,9 +131,36 @@ function showError(error) {
 
 function showPosition(position) {
 	
-	var latlon = position.coords.latitude + "," + position.coords.longitude;
+	alert("Pos: " + position.coords.latitude + "," + position.coords.longitude);
+		
+	mymap.panTo([position.coords.latitude, position.coords.longitude]);
 	
-	mymap.panTo(latlon);
+	L.marker([position.coords.latitude, position.coords.longitude], 
+	{icon:testMarkerBlue}).addTo(mymap).bindPopup("You are here");
 	
-	L.marker(latlon, {icon:testMarkerGreen}).addTo(mymap).bindPopup("You are here");
+	mymap.setView([position.coords.latitude, position.coords.longitude], 16);
+	
 }
+
+function trackLocation() {
+	
+	//setInterval(getLocation,3000);
+	
+	navigator.geolocation.watchPosition(function(position) {
+		var currentLat = position.coords.latitude;
+		var currentLon = position.coords.longitude;
+		
+		mymap.panTo([position.coords.latitude, position.coords.longitude]);
+	
+		L.marker([position.coords.latitude, position.coords.longitude], 
+		{icon:testMarkerBlue}).addTo(mymap).bindPopup("You are here");
+	
+		mymap.setView([position.coords.latitude, position.coords.longitude], 16);
+	});
+
+}
+
+
+
+
+
