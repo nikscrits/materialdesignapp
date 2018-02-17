@@ -228,7 +228,7 @@ function removePosition() {
 } */
 
 
-function trackLocation() {
+/* function trackLocation() {
 	
 	currentLocationJSON = tracking();
 
@@ -270,4 +270,52 @@ function tracking() {
 		
 		return currentLoc;
 	});
+} */
+
+
+function trackLocation() {
+	
+	currentLoc = setInterval(getCurrentLocation, 3000);
+
+	alert(currentLoc.properties.name);
+	
+	currentLocationLayer = L.geoJson(currentLoc,
+		{
+			alert(feature.properties.name);
+			//use point to layer to create the points
+			pointToLayer:function(feature,latlng)
+			{
+				return L.marker(latlng, {icon:testMarkerBlue}).bindPopup(feature.properties.popupContent);
+			},
+		}).addTo(mymap);
+			
+		mymap.fitBounds(currentLocationLayer.getBounds());
+		mymap.setView([lat2, lng2], 16);
+}
+
+
+function getCurrentLocation() {
+	
+	if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+	
+	var lat2 = position.coords.latitude;
+	var lng2 = position.coords.longitude;
+	
+	var locationJSON = {
+		"type": "Feature",
+		"properties": {
+			"name": "Start Location",
+			"popupContent": "This is the current location!"
+		},
+		"geometry": {
+			"type": "Point",
+			"coordinates": [lng2,lat2]
+		}
+	};
+	
+	return locationJSON;
 }
