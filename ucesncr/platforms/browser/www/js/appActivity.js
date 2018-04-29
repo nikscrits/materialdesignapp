@@ -97,3 +97,45 @@ function removeEarthquakes() {
 	alert("Earthquake data will be removed");
 	mymap.removeLayer(earthquakelayer);
 }
+
+
+
+
+function getPOIs() {
+	client = new XMLHttpRequest();
+	client.open('GET','http://developer.cege.ucl.ac.uk:30288/getPOI');
+	client.onreadystatechange = POIresponse; // note don't use earthquakeResponse() with brackets as that doesn't work
+	client.send();
+}
+
+
+function POIresponse() {
+	// this function listens out for the server to say that the data is ready - i.e. has state 4
+	if (client.readyState == 4) {
+		// once the data is ready, process the data
+		var POIdata = client.responseText;
+		loadPOIlayer(POIdata);
+	}
+}
+
+function loadPOIlayer(POIdata) {
+	
+	// convert the text to JSON
+	var POIjson = JSON.parse(POIdata);
+	
+	//load the geoJSON layer using custom icons
+	var POIlayer = L.geoJson(POIjson,
+	{
+		//use point to layer to create the points
+		pointToLayer:function(feature,latlng)
+		{
+			//look at the GeoJSON file - specifically at the properties - to see the
+			//earthquake magnitude and use a different marker depending on this value
+			//also include a pop-up that shows the place value of the earthquake
+			
+			return L.marker(latlng, {icon:testMarkerDRed}).bindPopup("POI");;
+		},
+	}).addTo(mymap);
+	
+	mymap.fitBounds(POIlayer.getBounds());
+}

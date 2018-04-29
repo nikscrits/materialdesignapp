@@ -103,7 +103,7 @@ function removeEarthquakes() {
 
 function getPOIs() {
 	client = new XMLHttpRequest();
-	client.open('GET','http://developer.cege.ucl.ac.uk:30260/getPOI');
+	client.open('GET','http://developer.cege.ucl.ac.uk:30288/getPOI');
 	client.onreadystatechange = POIresponse; // note don't use earthquakeResponse() with brackets as that doesn't work
 	client.send();
 }
@@ -118,7 +118,7 @@ function POIresponse() {
 	}
 }
 
-function loadPOIdata(POIdata) {
+function loadPOIlayer(POIdata) {
 	
 	// convert the text to JSON
 	var POIjson = JSON.parse(POIdata);
