@@ -103,7 +103,7 @@ function removeEarthquakes() {
 
 function getPOIs() {
 	client = new XMLHttpRequest();
-	client.open('GET','http://developer.cege.ucl.ac.uk:30288/getPOI');
+	client.open('GET','http://developer.cege.ucl.ac.uk:30288/getGeoJSON/united_kingdom_poi/geom');
 	client.onreadystatechange = POIresponse; // note don't use earthquakeResponse() with brackets as that doesn't work
 	client.send();
 }
